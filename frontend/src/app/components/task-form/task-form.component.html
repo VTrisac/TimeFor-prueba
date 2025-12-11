@@ -1,0 +1,78 @@
+<div class="glass-panel p-6 animate-slide-down">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">
+    {{ editingTask ? 'Editar tarea' : 'Nueva tarea' }}
+  </h2>
+
+  <form (ngSubmit)="onSubmit()" class="space-y-5">
+    <div>
+      <label for="title" class="block text-sm font-semibold text-slate-700 mb-2">
+        Título *
+      </label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        [(ngModel)]="title"
+        required
+        placeholder="Ej: Completar informe trimestral"
+        class="input-field"
+        maxlength="100"
+      />
+    </div>
+
+    <div>
+      <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">
+        Descripción
+      </label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="description"
+        rows="4"
+        placeholder="Añade detalles sobre la tarea..."
+        class="input-field resize-none"
+        maxlength="500"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="priority" class="block text-sm font-semibold text-slate-700 mb-2">
+        Prioridad
+      </label>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <button
+          *ngFor="let p of [Priority.LOW, Priority.MEDIUM, Priority.HIGH, Priority.URGENT]"
+          type="button"
+          (click)="priority = p"
+          [class.ring-2]="priority === p"
+          [class.ring-primary-500]="priority === p"
+          [class.bg-green-50]="p === Priority.LOW && priority === p"
+          [class.bg-yellow-50]="p === Priority.MEDIUM && priority === p"
+          [class.bg-orange-50]="p === Priority.HIGH && priority === p"
+          [class.bg-red-50]="p === Priority.URGENT && priority === p"
+          class="px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-primary-300 transition-all duration-200 text-sm font-medium text-slate-700 active:scale-95"
+        >
+          {{ getPriorityLabel(p) }}
+        </button>
+      </div>
+    </div>
+
+    <div class="flex gap-3 pt-4">
+      <button
+        type="submit"
+        [disabled]="!title.trim()"
+        class="btn-primary flex-1"
+      >
+        {{ editingTask ? 'Guardar cambios' : 'Crear tarea' }}
+      </button>
+
+      <button
+        type="button"
+        (click)="onCancel()"
+        class="btn-secondary"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

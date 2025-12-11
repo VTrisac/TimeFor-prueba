@@ -1,0 +1,145 @@
+<div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <header class="mb-8 animate-fade-in">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+            TaskFlow
+          </h1>
+          <p class="text-slate-600 mt-2">Organiza tu trabajo con fluidez y estilo</p>
+        </div>
+
+        <button
+          *ngIf="!showForm"
+          (click)="showForm = true"
+          class="btn-primary flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          Nueva tarea
+        </button>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="glass-panel p-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">⏳</span>
+            <div>
+              <p class="text-2xl font-bold text-slate-800">{{ getTaskCountByStatus(TaskStatus.PENDING) }}</p>
+              <p class="text-sm text-slate-600">Pendientes</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel p-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🚀</span>
+            <div>
+              <p class="text-2xl font-bold text-primary-600">{{ getTaskCountByStatus(TaskStatus.IN_PROGRESS) }}</p>
+              <p class="text-sm text-slate-600">En progreso</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel p-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">✓</span>
+            <div>
+              <p class="text-2xl font-bold text-green-600">{{ getTaskCountByStatus(TaskStatus.COMPLETED) }}</p>
+              <p class="text-sm text-slate-600">Completadas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex flex-wrap gap-2">
+        <button
+          (click)="setFilter('ALL')"
+          [class.bg-primary-600]="currentFilter === 'ALL'"
+          [class.text-white]="currentFilter === 'ALL'"
+          [class.bg-white/80]="currentFilter !== 'ALL'"
+          [class.text-slate-700]="currentFilter !== 'ALL'"
+          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
+        >
+          Todas ({{ tasks.length }})
+        </button>
+
+        <button
+          (click)="setFilter(TaskStatus.PENDING)"
+          [class.bg-primary-600]="currentFilter === TaskStatus.PENDING"
+          [class.text-white]="currentFilter === TaskStatus.PENDING"
+          [class.bg-white/80]="currentFilter !== TaskStatus.PENDING"
+          [class.text-slate-700]="currentFilter !== TaskStatus.PENDING"
+          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
+        >
+          ⏳ Pendientes
+        </button>
+
+        <button
+          (click)="setFilter(TaskStatus.IN_PROGRESS)"
+          [class.bg-primary-600]="currentFilter === TaskStatus.IN_PROGRESS"
+          [class.text-white]="currentFilter === TaskStatus.IN_PROGRESS"
+          [class.bg-white/80]="currentFilter !== TaskStatus.IN_PROGRESS"
+          [class.text-slate-700]="currentFilter !== TaskStatus.IN_PROGRESS"
+          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
+        >
+          🚀 En progreso
+        </button>
+
+        <button
+          (click)="setFilter(TaskStatus.COMPLETED)"
+          [class.bg-primary-600]="currentFilter === TaskStatus.COMPLETED"
+          [class.text-white]="currentFilter === TaskStatus.COMPLETED"
+          [class.bg-white/80]="currentFilter !== TaskStatus.COMPLETED"
+          [class.text-slate-700]="currentFilter !== TaskStatus.COMPLETED"
+          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
+        >
+          ✓ Completadas
+        </button>
+      </div>
+    </header>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 animate-slide-down">
+      {{ error }}
+    </div>
+
+    <!-- Task Form -->
+    <div *ngIf="showForm" class="mb-6">
+      <app-task-form
+        [editingTask]="editingTask"
+        (submitTask)="editingTask ? onUpdateTask($event) : onCreateTask($event)"
+        (cancel)="onCancelForm()"
+      ></app-task-form>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-12">
+      <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600"></div>
+      <p class="mt-4 text-slate-600">Cargando tareas...</p>
+    </div>
+
+    <!-- Task List -->
+    <div *ngIf="!loading" class="space-y-4">
+      <div *ngIf="filteredTasks.length === 0" class="text-center py-12 glass-panel">
+        <span class="text-6xl mb-4 block">📋</span>
+        <p class="text-xl text-slate-600 font-medium">No hay tareas aquí</p>
+        <p class="text-slate-500 mt-2">¡Crea una nueva tarea para empezar!</p>
+      </div>
+
+      <app-task-card
+        *ngFor="let task of filteredTasks"
+        [task]="task"
+        (statusChange)="onStatusChange(task, $event)"
+        (edit)="onEditTask(task)"
+        (delete)="onDeleteTask(task)"
+      ></app-task-card>
+    </div>
+
+  </div>
+</div>
