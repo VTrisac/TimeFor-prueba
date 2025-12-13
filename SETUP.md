@@ -236,7 +236,7 @@ cd frontend
 npm install
 ```
 
-Esto instalará todas las dependencias de Angular 20, Apollo, TailwindCSS, etc.
+Esto instalará todas las dependencias de Angular 19, Apollo, TailwindCSS, etc.
 
 **Nota**: La instalación puede tardar 2-5 minutos dependiendo de tu conexión.
 

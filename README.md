@@ -1,10 +1,10 @@
 # TaskFlow
 
-> Aplicación CRUD de gestión de tareas desarrollada con Angular 20 y Python GraphQL
+> Aplicación CRUD de gestión de tareas desarrollada con Angular 19 y Python GraphQL
 
 ## Stack Tecnológico
 
-**Frontend:** Angular 20 (standalone components) + TailwindCSS + Apollo GraphQL
+**Frontend:** Angular 19 (standalone components) + TailwindCSS + Apollo GraphQL
 **Backend:** Python + Starlette + Ariadne + Uvicorn
 **Base de datos:** MongoDB
 **Infraestructura:** Docker Compose
@@ -91,7 +91,7 @@ TimeFor/
 │   │   └── database.py  # MongoDB con Motor
 │   └── Dockerfile
 │
-├── frontend/            # SPA Angular 20
+├── frontend/            # SPA Angular 19
 │   ├── src/app/
 │   │   ├── components/  # Standalone components
 │   │   ├── services/    # GraphQL service
@@ -111,7 +111,7 @@ TimeFor/
 - **Repository Pattern:** Separa lógica de negocio del acceso a datos
 
 ### Frontend
-- **Standalone Components:** Angular 20 sin NgModules (más ligero y modular)
+- **Standalone Components:** Angular 19 sin NgModules (más ligero y modular)
 - **Apollo Client:** Gestión de estado GraphQL con cache automático
 - **TailwindCSS:** Sistema de diseño personalizado sin frameworks de componentes
 
