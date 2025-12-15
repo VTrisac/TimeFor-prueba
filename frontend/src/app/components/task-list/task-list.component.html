@@ -58,47 +58,19 @@
 
       <!-- Filters -->
       <div class="flex flex-wrap gap-2">
-        <button
-          (click)="setFilter('ALL')"
-          [class.bg-primary-600]="currentFilter === 'ALL'"
-          [class.text-white]="currentFilter === 'ALL'"
-          [class.bg-white/80]="currentFilter !== 'ALL'"
-          [class.text-slate-700]="currentFilter !== 'ALL'"
-          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
-        >
+        <button (click)="setFilter('ALL')" [ngClass]="{'bg-primary-600 text-white': currentFilter === 'ALL', 'bg-white/80 text-slate-700': currentFilter !== 'ALL'}" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md">
           Todas ({{ tasks.length }})
         </button>
 
-        <button
-          (click)="setFilter(TaskStatus.PENDING)"
-          [class.bg-primary-600]="currentFilter === TaskStatus.PENDING"
-          [class.text-white]="currentFilter === TaskStatus.PENDING"
-          [class.bg-white/80]="currentFilter !== TaskStatus.PENDING"
-          [class.text-slate-700]="currentFilter !== TaskStatus.PENDING"
-          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
-        >
+        <button (click)="setFilter(TaskStatus.PENDING)" [ngClass]="{'bg-primary-600 text-white': currentFilter === TaskStatus.PENDING, 'bg-white/80 text-slate-700': currentFilter !== TaskStatus.PENDING}" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md">
           ⏳ Pendientes
         </button>
 
-        <button
-          (click)="setFilter(TaskStatus.IN_PROGRESS)"
-          [class.bg-primary-600]="currentFilter === TaskStatus.IN_PROGRESS"
-          [class.text-white]="currentFilter === TaskStatus.IN_PROGRESS"
-          [class.bg-white/80]="currentFilter !== TaskStatus.IN_PROGRESS"
-          [class.text-slate-700]="currentFilter !== TaskStatus.IN_PROGRESS"
-          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
-        >
+        <button (click)="setFilter(TaskStatus.IN_PROGRESS)" [ngClass]="{'bg-primary-600 text-white': currentFilter === TaskStatus.IN_PROGRESS, 'bg-white/80 text-slate-700': currentFilter !== TaskStatus.IN_PROGRESS}" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md">
           🚀 En progreso
         </button>
 
-        <button
-          (click)="setFilter(TaskStatus.COMPLETED)"
-          [class.bg-primary-600]="currentFilter === TaskStatus.COMPLETED"
-          [class.text-white]="currentFilter === TaskStatus.COMPLETED"
-          [class.bg-white/80]="currentFilter !== TaskStatus.COMPLETED"
-          [class.text-slate-700]="currentFilter !== TaskStatus.COMPLETED"
-          class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md"
-        >
+        <button (click)="setFilter(TaskStatus.COMPLETED)" [ngClass]="{'bg-primary-600 text-white': currentFilter === TaskStatus.COMPLETED, 'bg-white/80 text-slate-700': currentFilter !== TaskStatus.COMPLETED}" class="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-md">
           ✓ Completadas
         </button>
       </div>
