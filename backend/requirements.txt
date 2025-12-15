@@ -1,5 +1,5 @@
 starlette==0.41.3
-ariadne==0.24.1
+ariadne==0.26.2
 uvicorn[standard]==0.32.1
 motor==3.6.0
 python-dotenv==1.0.1
